@@ -1,7 +1,7 @@
 <!-- <input type="text" class="form-control" (input)="setServerName($event)"> -->
 <input type="text" class="form-control" [(ngModel)]="serverName">
-<button class="btn btn-primary" [disabled]="!newServerEnabled" (click)="showServerStatus()">
+<button class="btn btn-primary" [disabled]="!newServerEnabled" (click)="addServer()">
   Add Server
 </button>
 <p *ngIf="serverName" [innerText]="serverName + serverStatus"></p>
-<app-server></app-server>
+<app-server *ngFor="let item of servers"></app-server>

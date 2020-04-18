@@ -1,0 +1,5 @@
+<button class="btn btn-primary" (click)="onClick()">Display Details</button>
+<p *ngIf="showDetails">details works!</p>
+<br>
+<p *ngFor="let item of timestamps" [ngStyle]="{'background-color': getBgColor(item)}"
+                                   [style]="{'color': getFrColor(item)}">{{ item }}</p>

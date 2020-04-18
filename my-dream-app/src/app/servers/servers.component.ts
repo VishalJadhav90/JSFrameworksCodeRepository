@@ -11,6 +11,7 @@ export class ServersComponent implements OnInit {
   newServerEnabled = false;
   serverStatus = "server is offline";
   serverName = "";
+  servers = ['Testserver'];
 
   constructor() {
     setTimeout(() => {
@@ -33,5 +34,9 @@ export class ServersComponent implements OnInit {
   setServerName(event: Event) {
     console.log(event);
     this.serverName = (<HTMLInputElement>event.target).value;
+  }
+
+  addServer() {
+    this.servers.push(this.serverName);
   }
 }

@@ -1,0 +1,5 @@
+<input type="text" [(ngModel)]="userName" (input)="onTextChange($event)">
+<button class="form-primary" [disabled]="!enableClearBtn" (click)="onButtonClick()">
+  Clear
+</button>
+<p> {{ userName }} </p>
