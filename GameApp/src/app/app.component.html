@@ -1,0 +1,8 @@
+<div class="container">
+  <app-game-control
+    (oddEvent)="handleOddEvent($event)"
+    (evenEvent)="handleEvenEvent($event)"
+  ></app-game-control>
+  <app-even *ngFor="let even of evenNumbers" [evenNumber]="even"></app-even>
+  <app-odd *ngFor="let odd of oddNumbers" [oddNumber]="odd"></app-odd>
+</div>
