@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div id="project-data"
+          ngModelGroup="projectData"
+          #projectData="ngModelGroup"
+          >
+          <div class="form-group">
+            <label for="projectname">Project Name</label>
+            <input
+              type="text"
+              id="projectname"
+              class="form-control"
+              ngModel
+              name="projectName"
+              required
+              #projectName="ngModel">
+          </div>
+          <span
+            class="help-block"
+            *ngIf="projectName.value == 'test'">Invalid project name !
+          </span>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              ngModel
+              name="email"
+              required
+              email
+              #email="ngModel">
+          </div>
+        </div>
+        <p class="help-block" *ngIf="!projectData.valid && projectData.touched">Project data section is invalid !</p>
+        <div class="dropdown">
+            <div>
+                <label class="label">Project Status</label>
+            </div>
+            <select
+              class="dropdown"
+              ngModel
+              name="projectStatus"
+              required
+              >
+                <option
+                  class="dropdown-item"
+                  *ngFor="let status of statuses">
+                  {{ status }}
+                </option>
+              </select>
+        </div>
+        <div class="form-group">
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!f.valid">Submit
+          </button>
+          <button
+            class="btn btn-info"
+            type="reset"
+            [disabled]="!f.touched">Clear
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
