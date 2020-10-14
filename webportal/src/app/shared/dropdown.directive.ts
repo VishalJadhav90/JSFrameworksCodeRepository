@@ -14,6 +14,7 @@ export class DropdownDirective implements OnInit {
   }
 
   @HostListener('click') mouseclick(event: Event) {
+    console.log("I am able to handle click event");
     this.isOpen = !this.isOpen;
   }
 

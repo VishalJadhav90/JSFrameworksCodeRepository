@@ -11,15 +11,14 @@ import { Router } from '@angular/router';
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [];
 
-  @Output('recipe-selected') recipeSelected = new EventEmitter<Recipe>();
-  constructor(private recipeService: RecipeService, private router: Router) { }
+  constructor(private recipeService: RecipeService, private router: Router) {
+    this.recipeService.recipeChanged.subscribe((recipes: Recipe[]) => {
+      this.recipes = recipes;
+    })
+   }
 
   ngOnInit(): void {
     this.recipes = this.recipeService.getRecipes();
   }
 
-
-  // onRecipeSelected(recipeSelected: Recipe) {
-  //   this.recipeSelected.emit(recipeSelected);
-  // }
 }

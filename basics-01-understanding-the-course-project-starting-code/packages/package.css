@@ -1,0 +1,77 @@
+.background {
+    background: url("../images/plans-background.jpg") center/cover;
+    filter: grayscale(40%);
+    left: 0rem;
+    top: 0rem;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: -1;
+}
+
+.package-section {
+    border: black solid 2px;
+    width: 80%;
+    margin-top: 5rem;
+    padding: 1.2rem;
+    position: relative;
+}
+
+.package-section:hover,
+.package-section:active {
+    border: 2px red solid;
+}
+
+.package-section__details {
+    text-decoration: none;
+}
+
+.package-section__details .plan_badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1.2rem;
+    font-size: 0.8rem;
+    color: white;
+    background: #ff5454;
+    padding: 0.5rem;
+}
+
+.package-section__details.premium_plan {
+    color: white;
+}
+
+.package-section.plus_plan {
+    background: rgb(175, 241, 175);
+}
+
+.package-section.free_plan {
+    background: rgb(236, 247, 236);
+}
+
+.package-section.premium_plan {
+    background: rgb(21, 129, 21);
+}
+
+.plan_details_para {
+    padding: 0.6rem;
+    border: black 1px solid;
+    background: white;
+    color: black
+}
+
+.plan_tagline.premium_plan {
+    color: silver;
+}
+
+.plan_tagline {
+    color: grey;
+}
+
+.plan_title {
+    color: black;
+}
+
+.plan_title.premium {
+    color: white;
+}

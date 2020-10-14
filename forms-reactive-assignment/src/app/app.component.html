@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div formGroupName="projectData">
+            <div class="form-group">
+                <label for="projectName">Project Name</label>
+                <input
+                  type="text"
+                  id="projectName"
+                  formControlName="projectName"
+                  class="form-control">
+            </div>
+            <span *ngIf="form.get('projectData.projectName').errors && form.get('projectData.projectName').errors['projectNameIsInvalid']">
+              Invalid project name chosen !
+            </span>
+            <span *ngIf="!form.get('projectData.projectName').valid && form.get('projectData.projectName').touched && !form.get('projectData.projectName').errors">
+              Please fill in Project Name !
+            </span>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="text"
+                  id="email"
+                  formControlName="email"
+                  class="form-control">
+            </div>
+            <span *ngIf="form.get('projectData.email').errors && form.get('projectData.email').errors['emailIsForbidden']">
+                Invalid email chosen !
+              </span>
+            <span *ngIf="!form.get('projectData.email').valid && form.get('projectData.email').touched && !form.get('projectData.email').errors">
+                Please enter email !
+            </span>
+            <div class="form-group">
+                <label for="projectStatus">Project Status</label>
+                <select
+                  class="dropdown"
+                  id="projectStatus"
+                  formControlName="projectStatus"
+                  >
+                  <option
+                    class="dropdown-item"
+                    *ngFor="let status of statuses">
+                    {{status}}
+                  </option>
+                </select>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

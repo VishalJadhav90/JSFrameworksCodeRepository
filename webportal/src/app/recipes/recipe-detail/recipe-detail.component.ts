@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Recipe } from '../recipe.model';
-import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
-import { Ingredient } from 'src/app/shared/ingredient.model';
 import { RecipeService } from '../recipe.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -25,5 +23,9 @@ export class RecipeDetailComponent implements OnInit {
 
   addToShoppingList() {
     this.recipeService.addToShoppingList(this.recipe.ingredients);
+  }
+
+  removeTheRecipe() {
+    this.recipeService.removeRecipe(this.id);
   }
 }

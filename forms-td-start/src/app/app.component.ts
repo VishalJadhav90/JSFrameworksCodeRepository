@@ -26,13 +26,4 @@ export class AppComponent{
     console.log(this.signupForm);
   }
 
-  // signupForm: FormGroup;
-
-  // ngOnInit() {
-  //   this.signupForm = new FormGroup({
-  //     'username': new FormControl(null),
-  //     'email': new FormControl(null),
-  //     'gender': new FormControl(null)
-  //   });
-  // }
 }

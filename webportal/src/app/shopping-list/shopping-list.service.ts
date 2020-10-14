@@ -1,26 +1,31 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, OnDestroy } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+
 import { Ingredient } from '../shared/ingredient.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingListService {
-  ingredientsChanged = new EventEmitter<Ingredient[]>();
+export class ShoppingListService implements OnDestroy {
+  ingredientsChanged = new Subject<Ingredient[]>();
 
   private ingredients: Ingredient[] = [
     new Ingredient('Apples', 5),
     new Ingredient('Tomatoes', 10)
   ];
 
-  getIngredients() {
-    return this.ingredients.slice();
-  }
+  itemsAdded: Subject<Ingredient> =  new Subject<Ingredient>();
+  itemsRemoved: Subject<Ingredient> = new Subject<Ingredient>();
+  itemsSet: Subject<Ingredient> = new Subject<Ingredient>();
 
-  itemsAdded: EventEmitter<Ingredient> =  new EventEmitter<Ingredient>();
-  itemsRemoved: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
+  private itemsAddedSubscription: Subscription = null;
+  private itemsRemovedSubscription: Subscription = null;
+  private itemsSetSubscription: Subscription = null;
+
+  startedEditing: Subject<number> = new Subject<number>();
 
   constructor() {
-    this.itemsAdded.subscribe((ingredient: Ingredient) => {
+    this.itemsAddedSubscription = this.itemsAdded.subscribe((ingredient: Ingredient) => {
       let incr = false;
       for (let ingre of this.ingredients) {
         if (ingre.name === ingredient.name) {
@@ -31,10 +36,10 @@ export class ShoppingListService {
       if (!incr) {
         this.ingredients.push(ingredient);
       }
-      this.ingredientsChanged.emit(this.ingredients.slice());
+      this.ingredientsChanged.next(this.ingredients.slice());
     });
 
-    this.itemsRemoved.subscribe((ingredient: Ingredient) => {
+    this.itemsRemovedSubscription = this.itemsRemoved.subscribe((ingredient: Ingredient) => {
       let decr = false;
       for (var i = 0; i < this.ingredients.length; i++) {
         if (this.ingredients[i].name === ingredient.name) {
@@ -45,16 +50,41 @@ export class ShoppingListService {
           }
         }
       }
-      this.ingredientsChanged.emit(this.ingredients.slice());
+      this.ingredientsChanged.next(this.ingredients.slice());
+    });
+
+    this.itemsSetSubscription = this.itemsSet.subscribe((ingredient: Ingredient) => {
+      for (var i = 0; i < this.ingredients.length; i++) {
+        if (this.ingredients[i].name === ingredient.name) {
+          this.ingredients[i].amount = ingredient.amount;
+        }
+      }
     });
   }
 
-  addIngredient(ingredient: Ingredient) {
 
+  getIngredient(index: number) {
+    return this.ingredients[index];
   }
 
-  removeIngredient(ingredient: Ingredient) {
+  getIngredients() {
+    return this.ingredients.slice();
+  }
 
+  setIngredients(index: number, amount: number) {
+    this.ingredients[index].amount = amount;
+  }
+
+  ngOnDestroy() {
+    if (this.itemsAddedSubscription) {
+      this.itemsAddedSubscription.unsubscribe();
+    }
+    if (this.itemsRemovedSubscription) {
+      this.itemsRemovedSubscription.unsubscribe();
+    }
+    if (this.itemsSetSubscription) {
+      this.itemsSetSubscription.unsubscribe();
+    }
   }
 
 }

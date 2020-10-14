@@ -1,0 +1,48 @@
+{
+  "name": "NSFW Filter",
+  "version": "1.2.0",
+  "description": "Hide NSFW content from websites using this extension powered by AI! PS: We don't access your data, it runs locally in your browser!",
+  "author": "Navendu Pottekkat",
+  "homepage_url": "https://github.com/nsfw-filter/nsfw-filter/",
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "<all_urls>",
+    "tabs"
+  ],
+  "background": {
+    "scripts": ["src/background.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": ["src/content.js"],
+      "all_frames": true,
+      "run_at": "document_start"
+    }
+  ],
+  "browser_action": {
+    "default_icon": {
+      "16": "images/icon16.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    },
+    "default_title": "NSFW Filter"
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "web_accessible_resources": [
+    "models/*, images/*"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "manifest_version": 2
+}
